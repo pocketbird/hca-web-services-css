@@ -69,37 +69,23 @@ Comment style should be simple and consistent within a single code base.
 * Make liberal use of comments to break CSS code into discrete sections.
 * Use "sentence case" comments and consistent text indentation.
 
-Tip: configure your editor to provide you with shortcuts to output agreed-upon
-comment patterns.
-
 Example:
 
 ```css
-/* ==========================================================================
-   Section comment block
-   ========================================================================== */
-
-/* Sub-section comment block
-   ========================================================================== */
-
-/**
- * Short description using Doxygen-style comment format
+/*
+ * Name: Name of file at the top
+ * Author: HCA Web Services
+ * Date Modified: 10-10-2014
  *
- * The first sentence of the long description starts here and continues on this
- * line for a while finally concluding here at the end of this paragraph.
+ * Description of whatever it is you need to describe. Make sure to
+ * keep comments at a sensible lengeth and write like a human.
  *
- * The long description is ideal for more detailed explanations and
- * documentation. It can include example HTML, URLs, or any other information
- * that is deemed necessary or useful.
- *
- * @tag This is a tag named 'tag'
- *
- * TODO: This is a todo statement that describes an atomic task to be completed
- *   at a later date. It wraps after 80 characters and following lines are
- *   indented by 2 spaces.
  */
 
-/* Basic comment */
+// Basic comments use LESS ninja comments double slash
+
+// Section comment block
+//
 ```
 
 
@@ -113,7 +99,7 @@ in useful diffs and blames.
 * Use one discrete selector per line in multi-selector rulesets.
 * Include a single space before the opening brace of a ruleset.
 * Include one declaration per line in a declaration block.
-* Use one level of indentation for each declaration.
+* Use one level of tab indentation for each declaration.
 * Include a single space after the colon of a declaration.
 * Use lowercase and shorthand hex values, e.g., `#aaa`.
 * Use single or double quotes consistently. Preference is for double quotes,
@@ -132,19 +118,44 @@ in useful diffs and blames.
 .selector-1,
 .selector-2,
 .selector-3[type="text"] {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    display: block;
-    font-family: helvetica, arial, sans-serif;
-    color: #333;
-    background: #fff;
-    background: linear-gradient(#fff, rgba(0, 0, 0, 0.8));
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: block;
+	font-family: helvetica, arial, sans-serif;
+	color: #333;
+	background: #fff;
+	background: linear-gradient(#fff, rgba(0, 0, 0, 0.8));
 }
 
 .selector-a,
 .selector-b {
-    padding: 10px;
+	padding: 10px;
+}
+
+.single-selector { margin: 10px; }
+```
+### Naming convention of selector
+In general, naming a selecter should be *as short as possible but
+as long as necessary* to accuratly convey what the selector is doing.
+
+*prefix-where-what*
+
+Example: Let's say we are working on the Home Featured Items widget.
+
+```css
+
+// Home featured items
+//
+.home-featured-items {
+	// Styles for main home featured items widget
+}
+
+// Home featurd items title
+.home-featured-items-title {
+	// Styles for a consisten title style in the home featured items
+	// Notice it is not on h3
+	// Targeting class names and not elements makes our code more flexible
 }
 ```
 
@@ -156,9 +167,11 @@ a single, simple principle.
 Smaller teams may prefer to cluster related properties (e.g. positioning and
 box-model) together.
 
+*Make sure to describe position or purpose of statements where necesarry.*
+
 ```css
 .selector {
-    /* Positioning */
+    // Positioning
     position: absolute;
     z-index: 10;
     top: 0;
@@ -166,7 +179,7 @@ box-model) together.
     bottom: 0;
     left: 0;
 
-    /* Display & Box Model */
+    // Display & Box Model
     display: inline-block;
     overflow: hidden;
     box-sizing: border-box;
@@ -176,7 +189,7 @@ box-model) together.
     border: 10px solid #333;
     margin: 10px;
 
-    /* Other */
+    // Other
     background: #000;
     color: #fff;
     font-family: sans-serif;
@@ -222,26 +235,69 @@ Different CSS preprocessors have different features, functionality, and syntax.
 Your conventions should be extended to accommodate the particularities of any
 preprocessor in use. The following guidelines are in reference to Sass.
 
-* Limit nesting to 1 level deep. Reassess any nesting more than 2 levels deep.
+* Limit nesting to 1 level deep.
+* Reassess any nesting more than 2 levels deep.
   This prevents overly-specific CSS selectors.
-* Avoid large numbers of nested rules. Break them up when readability starts to
-  be affected. Preference to avoid nesting that spreads over more than 20
-  lines.
-* Always place `@extend` statements on the first lines of a declaration
-  block.
 * Where possible, group `@include` statements at the top of a declaration
   block, after any `@extend` statements.
 * Consider prefixing custom functions with `x-` or another namespace. This
   helps to avoid any potential to confuse your function with a native CSS
   function, or to clash with functions from libraries.
 
-```scss
+
+
+Follow [LESS](http://lesscss.org/) syntax and standards.
+
+Make sure to define variables at top of file. If a mixin has the 
+ability to be reused, consider adding it to the global 'helper.less' file.
+
+
+```less
+
+// Variables
+@color-1
+@color-2
+@color-3
+
+// Mixins
+.mixin(x,x) {}
+
+
+// List of stuff
+//
+
+// List of stuff
+ul.list-of-stuff {
+	margin: 0;
+	padding: 0;
+}
+
+// Items in the list of stuff
+ul.list of stuff > li {
+	list-type: none;
+	padding: 10px;
+	
+	// Background is the color of the background of item
+	background: teal;
+}
+
+// Anchor tags inside of list of stuff
+ul.list-of-stuff > li > a {
+	text-decoration: none;
+	
+	// Change link color to color-1
+	color: @color-1;
+}
+
+
+// New section
+//
+
+// Selector
 .selector-1 {
-    @extend .other-rule;
-    @include clearfix();
-    @include box-sizing(border-box);
-    width: x-grid-unit(1);
-    // other declarations
+	.clearfix();
+	.mixin(x,x);
+	// other declarations
 }
 ```
 
@@ -252,83 +308,48 @@ preprocessor in use. The following guidelines are in reference to Sass.
 An example of various conventions.
 
 ```css
-/* ==========================================================================
-   Grid layout
-   ========================================================================== */
+// Little calendar
 
-/**
- * Column layout with horizontal scroll.
- *
- * This creates a single row of full-height, non-wrapping columns that can
- * be browsed horizontally within their parent.
- *
- * Example HTML:
- *
- * <div class="grid">
- *     <div class="cell cell-3"></div>
- *     <div class="cell cell-3"></div>
- *     <div class="cell cell-3"></div>
- * </div>
- */
+@crm-little-calendar-width: 129px;
 
-/**
- * Grid container
- *
- * Must only contain `.cell` children.
- *
- * 1. Remove inter-cell whitespace
- * 2. Prevent inline-block cells wrapping
- */
-
-.grid {
-    height: 100%;
-    font-size: 0; /* 1 */
-    white-space: nowrap; /* 2 */
+// Little calendar and multi
+.crm-date-calendar,
+.crm-date-calendar-multi {
+	position: relative;
+	max-width: @crm-little-calendar-width;
+	text-align: center;
 }
 
-/**
- * Grid cells
- *
- * No explicit width by default. Extend with `.cell-n` classes.
- *
- * 1. Set the inter-cell spacing
- * 2. Reset white-space inherited from `.grid`
- * 3. Reset font-size inherited from `.grid`
- */
+// Calendar with multiple sessions
+.crm-date-calendar-multi {
+	-webkit-box-shadow: 10px 10px 0 0 #eee;
+	-moz-box-shadow:    10px 10px 0 0 #eee;
+	box-shadow:         10px 10px 0 0 #eee;
 
-.cell {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    box-sizing: border-box;
-    height: 100%;
-    padding: 0 10px; /* 1 */
-    border: 2px solid #333;
-    vertical-align: top;
-    white-space: normal; /* 2 */
-    font-size: 16px; /* 3 */
+	&:after {
+		display: block;
+		content: '';
+		position: absolute;
+		
+		top: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 0;
+		
+		-webkit-box-shadow: 5px 5px 0px 0px #ccc;
+		-moz-box-shadow:    5px 5px 0px 0px #ccc;
+		box-shadow:         5px 5px 0px 0px #ccc;
+	}
 }
 
-/* Cell states */
-
-.cell.is-animating {
-    background-color: #fffdec;
-}
-
-/* Cell dimensions
-   ========================================================================== */
-
-.cell-1 { width: 10%; }
-.cell-2 { width: 20%; }
-.cell-3 { width: 30%; }
-.cell-4 { width: 40%; }
-.cell-5 { width: 50%; }
-
-/* Cell modifiers
-   ========================================================================== */
-
-.cell--detail,
-.cell--important {
-    border-width: 4px;
+// Month
+.crm-date-month {
+	background: #7A7A7A;
+	color: #ffffff;
+	font-size: 28px;
+	text-transform: uppercase;
+	font-weight: 600;
+	text-align: center;
+	padding: 2px 10px;
 }
 ```
