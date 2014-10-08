@@ -1,6 +1,6 @@
 # HCA Web Services CSS
 
-The following document outlines is based off of [Idiomatic CSS](https://github.com/necolas/idiomatic-css)
+The following document outlines are based off of [Idiomatic CSS](https://github.com/necolas/idiomatic-css)
 design principles for CSS development.These guidelines strongly encourage the use of
 existing, common, sensible patterns.
 
@@ -252,8 +252,7 @@ Make sure to define variables at top of file. If a mixin has the
 ability to be reused, consider adding it to the global 'helper.less' file.
 
 
-```less
-
+```css
 // Variables
 @color-1
 @color-2
