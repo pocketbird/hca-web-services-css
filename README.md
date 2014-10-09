@@ -1,6 +1,6 @@
 # HCA Web Services CSS
 
-The following document outlines are based off of [Idiomatic CSS](https://github.com/necolas/idiomatic-css)
+The following standards are based off of [Idiomatic CSS](https://github.com/necolas/idiomatic-css)
 design principles for CSS development.These guidelines strongly encourage the use of
 existing, common, sensible patterns.
 
@@ -248,7 +248,7 @@ preprocessor in use. The following guidelines are in reference to Sass.
 
 Follow [LESS](http://lesscss.org/) syntax and standards.
 
-Make sure to define variables at top of file. If a mixin has the 
+Make sure to define variables at top of file. If a mixin has the
 ability to be reused, consider adding it to the global 'helper.less' file.
 
 
@@ -275,7 +275,7 @@ ul.list-of-stuff {
 ul.list of stuff > li {
 	list-type: none;
 	padding: 10px;
-	
+
 	// Background is the color of the background of item
 	background: teal;
 }
@@ -283,7 +283,7 @@ ul.list of stuff > li {
 // Anchor tags inside of list of stuff
 ul.list-of-stuff > li > a {
 	text-decoration: none;
-	
+
 	// Change link color to color-1
 	color: @color-1;
 }
@@ -329,12 +329,12 @@ An example of various conventions.
 		display: block;
 		content: '';
 		position: absolute;
-		
+
 		top: 0;
 		height: 100%;
 		width: 100%;
 		z-index: 0;
-		
+
 		-webkit-box-shadow: 5px 5px 0px 0px #ccc;
 		-moz-box-shadow:    5px 5px 0px 0px #ccc;
 		box-shadow:         5px 5px 0px 0px #ccc;
